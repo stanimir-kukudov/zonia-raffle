@@ -2,10 +2,6 @@
 
 Follow these easy steps to get your project up and running in no time!
 
-## Install nvm
-
-First things first, make sure you have Node Version Manager (nvm) installed. If not, follow the instructions to set it up.
-
 ## Install Docker and Docker Compose
 
 We'll need Docker to manage our project environment. Install both Docker and Docker Compose by following the installation instructions for your operating system.
@@ -24,14 +20,6 @@ Start the Docker containers with the following command:
 
 ```bash
 docker-compose up -d
-```
-
-## Node Version
-
-Ensure you're using the correct Node.js version with:
-
-```bash
-nvm use
 ```
 
 ## Install Dependencies
