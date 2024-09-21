@@ -1,0 +1,10 @@
+{
+  "name": "zonia-raffle",
+  "scripts": {
+    "format": "prettier --write \"app/src/**/*.ts\" \"ui/src/**/*.ts\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  },
+  "type": "module"
+}

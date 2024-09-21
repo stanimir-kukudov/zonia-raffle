@@ -1,1 +1,1 @@
-# zonia-raffle
+# Follow steps in app and ui folders

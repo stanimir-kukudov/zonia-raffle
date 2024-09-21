@@ -1,0 +1,16 @@
+name: 'zonia'
+services:
+  mysql:
+    hostname: mysql-docker
+    image: mysql:8.0.30
+    volumes:
+      - /var/lib/mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: 'zonia'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+volumes:
+  db:
