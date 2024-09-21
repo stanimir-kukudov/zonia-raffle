@@ -1,9 +1,7 @@
-import 'reflect-metadata';
 import cors from 'cors';
 import express, { type Express } from 'express';
 import helmet from 'helmet';
 import { pino } from 'pino';
-
 import { openAPIRouter } from '@/api-docs/openAPIRouter';
 import { healthCheckRouter } from '@/api/healthCheck/healthCheckRouter';
 import { userRouter } from '@/api/user/userRouter';
@@ -12,9 +10,10 @@ import rateLimiter from '@/common/middleware/rateLimiter';
 import requestLogger from '@/common/middleware/requestLogger';
 import { env } from '@/common/utils/envConfig';
 import { myDataSource } from '@/app-data-source';
-
+import { timerRouter } from '@/api/timer/timerRouter';
 const logger = pino({ name: 'server start' });
 const app: Express = express();
+
 myDataSource
   .initialize()
   .then(() => {
@@ -30,12 +29,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(helmet());
-app.use(rateLimiter);
-
+if (process.env.NODE_ENV === 'production') {
+  app.use(rateLimiter);
+}
 app.use(requestLogger);
 
-app.use('/health-check', healthCheckRouter);
-app.use('/users', userRouter);
+app.use('/api/health-check', healthCheckRouter);
+app.use('/api/users', userRouter);
+app.use('/api/timer', timerRouter);
 
 app.use(openAPIRouter);
 

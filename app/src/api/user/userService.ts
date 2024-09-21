@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { ServiceResponse } from '@/common/models/serviceResponse';
 import { User } from '@/entities/user.entity';
-import { MoreThan } from 'typeorm';
+import { MoreThan, Raw } from 'typeorm';
 import { logger } from '@/server';
 
 export class UserService {
@@ -12,6 +12,16 @@ export class UserService {
 
   async findAllWinners(): Promise<ServiceResponse<User[] | null>> {
     return ServiceResponse.success<User[]>('Users found', await User.findBy({ wins: MoreThan(0) }));
+  }
+
+  async findRandomWinner(): Promise<ServiceResponse<User>> {
+    const winner = await User.createQueryBuilder('user')
+      .where('user.wins = :wins', { wins: 0 })
+      .orderBy('RAND()')
+      .getOneOrFail();
+    await User.update(winner.id, { wins: winner.wins + 1 });
+
+    return ServiceResponse.success<User>('Users found', winner);
   }
 
   async findById(id: number): Promise<ServiceResponse<User | null>> {

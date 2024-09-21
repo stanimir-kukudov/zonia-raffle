@@ -16,7 +16,7 @@ export const GetUserSchema = z.object({
   params: z.object({ id: commonValidations.id }),
 });
 
-@Entity()
+@Entity('users')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

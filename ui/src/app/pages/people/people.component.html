@@ -1,0 +1,11 @@
+<app-page-layout>
+  <div class="container my-3">
+    <ng-container>
+      <button *ngIf="!winner" class="btn btn-primary" (click)="getWinner()">Get Winner</button>
+    </ng-container>
+    <app-progress-bar *ngIf="storeService.isLoading()"></app-progress-bar>
+    <ng-container *ngIf="winner">
+      <p class="text-justify"><strong>Winner:</strong> {{ winner.firstName }} {{ winner.lastName }}</p>
+    </ng-container>
+  </div>
+</app-page-layout>

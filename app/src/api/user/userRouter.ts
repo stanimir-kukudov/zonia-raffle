@@ -1,7 +1,6 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import express, { type Router } from 'express';
 import { z } from 'zod';
-
 import { createApiResponse } from '@/api-docs/openAPIResponseBuilders';
 import { validateRequest } from '@/common/utils/httpHandlers';
 import { userController } from './userController';
@@ -29,6 +28,15 @@ userRegistry.registerPath({
 });
 
 userRouter.get('/winners', userController.getWinners);
+
+userRegistry.registerPath({
+  method: 'post',
+  path: '/users/winner',
+  tags: ['User'],
+  responses: createApiResponse(UserSchema, 'Success'),
+});
+
+userRouter.post('/winner', userController.createWinner);
 
 userRegistry.registerPath({
   method: 'get',
